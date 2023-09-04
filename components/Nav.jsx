@@ -20,8 +20,6 @@ const Nav = () => {
     setUpProviders();
   }, []);
 
-  let isLoggedIn = true;
-
   return (
     <nav className="flex justify-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 justify-center">
@@ -99,7 +97,7 @@ const Nav = () => {
                   My profile
                 </Link>
                 <Link
-                  href="/create-prompt"
+                  href="create-prompt"
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
