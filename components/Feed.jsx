@@ -36,20 +36,41 @@ const Feed = () => {
     setSearchText(e.target.value);
   };
 
+  const filteredPosts = posts.filter((post) => {
+    const isSearchUserName = post.creator.username
+      .toLowerCase()
+      .includes(searchText.toLowerCase());
+    const isSearchPrompt = post.prompt
+      .toLowerCase()
+      .includes(searchText.toLowerCase());
+    const isSearchTag = post.tag
+      .toLowerCase()
+      .includes(searchText.toLowerCase());
+
+    if (isSearchUserName || isSearchPrompt || isSearchTag) {
+      return true;
+    }
+    return false;
+  });
+
+  const handleTagClick = (search) => {
+    setSearchText(search);
+  };
+
   return (
     <section className="feed">
       <form className="relative w-full justify-center">
         <input
           type="text"
-          placeholder="Search for a tag or a username"
+          placeholder="Search for a prompt, tag or a username"
           value={searchText}
           onChange={handleSearchChange}
           required
-          className="search_input peer"
+          className="search_input peer text-gray-700 focus:border-blue-600 transition"
         />
       </form>
 
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
     </section>
   );
 };
